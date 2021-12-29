@@ -1,0 +1,95 @@
+Script started on 2021-11-10 13:11:30-05:00 [TERM="xterm-256color" TTY="/dev/pts/108" COLUMNS="80" LINES="24"]
+[systemd]
+Failed Units: [31m1[39m
+  user@2001137.service
+]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ date
+[?2004lWed 10 Nov 2021 01:11:36 PM EST
+]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ whoami
+[?2004lanaqvi23
+]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ ls -l
+[?2004ltotal 105
+-rw-r--r-- 1 anaqvi23 anaqvi23     0 Nov 10 13:11 anaqvi23_asn4.output
+-rwxrwxr-x 1 anaqvi23 anaqvi23 24808 Nov 10 13:09 [0m[01;32masn4[0m
+-rw-r--r-- 1 anaqvi23 anaqvi23  1918 Nov 10 13:06 Asn4_SubmissionForm.txt
+-rw-r--r-- 1 anaqvi23 anaqvi23   452 Nov 10 12:51 combineArrays.c
+-rw-r--r-- 1 anaqvi23 anaqvi23   550 Nov 10 12:51 definitions.h
+-rw-r--r-- 1 anaqvi23 anaqvi23   185 Nov 10 12:51 headers.h
+-rw-r--r-- 1 anaqvi23 anaqvi23  1420 Nov 10 12:51 initArrays.c
+-rw-r--r-- 1 anaqvi23 anaqvi23  1632 Nov 10 12:54 main.c
+-rw-r--r-- 1 anaqvi23 anaqvi23  1814 Nov 10 12:52 printArrays.c
+-rw-r--r-- 1 anaqvi23 anaqvi23   771 Nov 10 12:52 sortArrays.c
+]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ cat main.c
+[?2004l#include "headers.h"
+int main()
+{
+    int nArrs, row, column;     // nArrs, row and column are the user defined dimension of the 3D array
+    int ***nTables;             // nTables represents a 3D pointer used to store the array
+    
+    printf("\nEnter the number or arrays (0 to quit): ");
+    scanf("%d", &nArrs);        // Scans the values entered by the user and equates them to the number of arrays
+    while ( nArrs !=0){
+        printf("\n Enter values for Rows, Columns (e.g 2,3): ");
+        scanf("%d %d", &row, &column);      // Gets user defined parameters for the array
+        nTables = (int ***) calloc(nArrs +1, sizeof(int**));    // Defines nTables based on the number of arrays stated by the user
+        initArrays(nTables, nArrs, row, column);                // Initializes the array using a function in in the initArray.c file
+        combineArrays(nTables, nArrs, row, column);             // Combines the arrays by making the last array equal to the totals of each cell in the array
+        printArrays(nTables, nArrs, row, column, PRINTFULLLIST);    // Uses the generic method printArrays and prints the full list of arrays stored in nTables
+        arraySort(nTables[nArrs], row, column);     // Sorts the last array of totals in ascending order
+        printArrays(nTables, nArrs, row, column, PRINTTOTALSORTED); // Prints the total sorted array
+        printf("\nXXXXXX END OF SESSION XXXXXX\n\n");
+        printf("Enter the number of arrays (0 to quit) : "); // Loops back to the original statement repeating the process again until the user enters 0
+        scanf("%d", &nArrs);
+    }
+    return 0;
+
+}
+]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ gcc -o asn4 a[Kmain.c
+[?2004l]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ ./asn4
+[?2004l
+Enter the number or arrays (0 to quit): 3
+
+ Enter values for Rows, Columns (e.g 2,3): 4
+5
+
+
+Array Number : 1
+  584  287  178  116  594
+  536  587  493  250  422
+  363  428  291  260  564
+  527  541  427  173  137
+
+
+Array Number : 2
+   12  369  568  430  183
+  531   63  524   68  536
+  330  403  223  259  270
+  568  194  257  212  443
+
+
+Array Number : 3
+  430  574   22  120  585
+  338  399  525  516  571
+  414  527   92  381  357
+  274   63  171  197  482
+
+
+Array of Combined Totals based on 4 arrays
+ 1026 1230  768  666 1362
+ 1405 1049 1542  834 1529
+ 1107 1358  606  900 1191
+ 1369  798  855  582 1062
+
+
+Array of Combined Totals based on 4 arrays Sorted Ascending
+  582  606  666  768  798
+  834  855  900 1026 1049
+ 1062 1107 1191 1230 1358
+ 1362 1369 1405 1529 1542
+
+XXXXXX END OF SESSION XXXXXX
+
+Enter the number of arrays (0 to quit) : 0
+]0;anaqvi23@compute:~/courses/cs2211/assignments/asn4[?2004h[anaqvi23@compute asn4]$ exit
+[?2004lexit
+
+Script done on 2021-11-10 13:12:27-05:00 [COMMAND_EXIT_CODE="0"]
